@@ -1,0 +1,102 @@
+Untuk menggunakan package lokal dalam proyek Go seperti contoh di atas, ikuti langkah-langkah berikut:
+
+### 1. Struktur Direktori
+Pastikan struktur direktori proyek kamu sesuai. Misalnya:
+
+```
+project-root/
+│
+├── blueprint-example/
+│   ├── go.mod
+│   ├── main.go
+│
+└── Enigma camp/
+    └── 5. GOLANG DATABASE/
+        └── geometry-lib/
+            ├── go.mod
+            ├── shape.go
+```
+
+### 2. Membuat `go.mod` di `geometry-lib`
+
+Di dalam direktori `geometry-lib`, buat file `go.mod` untuk mendefinisikan module-nya.
+
+```sh
+cd "D:/DEVELOPER 2024/Enigma camp/5. GOLANG DATABASE/geometry-lib"
+go mod init geometry-lib
+```
+
+### 3. Membuat Kode dalam `geometry-lib`
+
+Contoh file `shape.go`:
+
+```go
+package geometry
+
+// Shape adalah interface untuk bentuk geometris
+type Shape interface {
+    Area() float64
+}
+
+// Circle adalah struct untuk lingkaran
+type Circle struct {
+    Radius float64
+}
+
+// Area menghitung luas lingkaran
+func (c Circle) Area() float64 {
+    return 3.14 * c.Radius * c.Radius
+}
+```
+
+### 4. Mengatur `go.mod` dalam `blueprint-example`
+
+Di dalam direktori `blueprint-example`, buat file `go.mod` untuk mendefinisikan module-nya.
+
+```sh
+cd "D:/DEVELOPER 2024/Enigma camp/4. GOROUTINE/blueprint-example"
+go mod init blueprint-example
+```
+
+Tambahkan penggantian path untuk `geometry-lib` dalam file `go.mod`.
+
+```go
+module blueprint-example
+
+go 1.22
+
+replace geometry-lib => "D:/DEVELOPER 2024/Enigma camp/5. GOLANG DATABASE/geometry-lib"
+```
+
+### 5. Menggunakan `geometry-lib` dalam `main.go`
+
+Buat atau edit file `main.go` di dalam direktori `blueprint-example`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "geometry-lib"
+)
+
+func main() {
+    circle := geometry.Circle{Radius: 5}
+    fmt.Println("Luas lingkaran:", circle.Area())
+}
+```
+
+### 6. Menjalankan Program
+
+Jalankan program dari direktori `blueprint-example`.
+
+```sh
+cd "D:/DEVELOPER 2024/Enigma camp/4. GOROUTINE/blueprint-example"
+go run main.go
+```
+
+Jika semua langkah diikuti dengan benar, kamu akan melihat output yang menunjukkan luas lingkaran.
+
+### Kesimpulan
+
+Dengan langkah-langkah ini, kamu bisa menggunakan package lokal dalam proyek Go-mu. Pastikan path di dalam `replace` sesuai dengan lokasi sebenarnya dari package `geometry-lib`. Jika ada kesalahan, periksa kembali path dan struktur direktori.
